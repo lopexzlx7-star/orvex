@@ -25,7 +25,6 @@ python3 -m http.server 8000
 
 - **Hero** com seção pinada: o notebook abre e o celular liga conforme o scroll.
 - **Plataforma** — a linha Dados → Inteligência → Agentes → Automação → Negócio e as cinco camadas.
-- **Contato** — formulário com validação visual.
 - **Busca ⌘K** — paleta de comandos que salta para qualquer seção.
 - Tema claro/escuro seguindo a preferência do sistema, responsivo e com
   `prefers-reduced-motion` respeitado.
@@ -43,8 +42,5 @@ Como é um site estático, o GitHub Pages serve direto:
 
 - **Nome da marca**: o site usa *ORVEX*. Está em texto puro no HTML, então a
   troca é uma busca e substituição simples.
-- **Login**: o botão *Entrar* aponta para `#`. Troque pela URL real quando existir.
-- **E-mail de contato**: `hello@operand.systems` é um placeholder.
-- **Formulário**: hoje é só front-end — não envia para nenhum lugar. Para
-  funcionar de verdade, aponte o `action` para um backend, serviço de formulário
-  ou sistema de tickets.
+- **Login e cadastro**: os botões *Entrar* e *Cadastro* apontam para `#`. Troque
+  pelos destinos reais quando existirem.
