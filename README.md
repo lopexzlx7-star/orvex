@@ -10,6 +10,9 @@ JavaScript estão embutidos no próprio HTML.
 | Arquivo | Descrição |
 |---|---|
 | `index.html` | O site completo |
+| `entrar.html` | Login (protótipo local, sem backend) |
+| `cadastro.html` | Cadastro (protótipo local, sem backend) |
+| `dashboard.html` | Painel pós-login: KPIs, financeiro, atendimento e automações (dados de demonstração) |
 | `README.md` | Este arquivo |
 
 ## Rodando localmente
@@ -42,5 +45,7 @@ Como é um site estático, o GitHub Pages serve direto:
 
 - **Nome da marca**: o site usa *ORVEX*. Está em texto puro no HTML, então a
   troca é uma busca e substituição simples.
-- **Login e cadastro**: os botões *Entrar* e *Cadastro* apontam para `#`. Troque
-  pelos destinos reais quando existirem.
+- **Login e cadastro**: os botões *Entrar* e *Cadastro* apontam para
+  `entrar.html` e `cadastro.html`. É um protótipo somente de front-end: as
+  contas ficam no `localStorage` do navegador (senha guardada como hash SHA-256
+  com salt). Troque pelo backend definitivo quando existir.
