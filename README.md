@@ -1,6 +1,6 @@
-# Operand — Inteligência que opera.
+# ORVEX — Inteligência que opera.
 
-Site institucional da Operand, empresa de transformação em IA e sistemas inteligentes.
+Site institucional da ORVEX, empresa de transformação em IA e sistemas inteligentes.
 
 Página única, estática, sem build e sem dependências instaláveis: todo o CSS e o
 JavaScript estão embutidos no próprio HTML.
@@ -41,7 +41,7 @@ Como é um site estático, o GitHub Pages serve direto:
 
 ## Pontos para revisar antes de publicar
 
-- **Nome da marca**: o site usa *Operand*. Está em texto puro no HTML, então a
+- **Nome da marca**: o site usa *ORVEX*. Está em texto puro no HTML, então a
   troca é uma busca e substituição simples.
 - **Login**: o botão *Entrar* aponta para `#`. Troque pela URL real quando existir.
 - **E-mail de contato**: `hello@operand.systems` é um placeholder.

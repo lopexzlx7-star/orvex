@@ -3,15 +3,15 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Operand — Inteligência que opera.</title>
-<meta name="description" content="A Operand é uma empresa de transformação em IA e sistemas inteligentes. Projetamos e implantamos sistemas de IA que entendem o seu negócio, conectam a sua tecnologia e automatizam o trabalho que importa." />
+<title>ORVEX — Inteligência que opera.</title>
+<meta name="description" content="A ORVEX é uma empresa de transformação em IA e sistemas inteligentes. Projetamos e implantamos sistemas de IA que entendem o seu negócio, conectam a sua tecnologia e automatizam o trabalho que importa." />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
 <script>document.documentElement.classList.add('js-pin');</script>
 <style>
 /* ============================================================
-   OPERAND — DESIGN SYSTEM
+   ORVEX — DESIGN SYSTEM
    Palette: white / space gray / black / light grays
    Type: Inter (UI) + Geist Mono (technical labels)
    ============================================================ */
@@ -105,8 +105,9 @@ header{position:fixed;top:0;left:0;right:0;z-index:80;background:transparent;
   backdrop-filter:none;-webkit-backdrop-filter:none}
 .nav{display:flex;align-items:center;justify-content:space-between;height:52px}
 .brand{display:flex;align-items:center;gap:9px;font-weight:500;letter-spacing:-.02em;font-size:15.5px}
-.mark{width:21px;height:21px;flex:0 0 auto}
-.navlinks{display:flex;align-items:center;gap:7px}
+.brand-lockup{position:relative;width:152px;height:34px;overflow:hidden;flex:0 0 auto}
+.brand-image{position:absolute;left:-63px;top:-121px;width:285px;height:285px;max-width:none;filter:none}
+.navlinks{display:flex;align-items:center;gap:7px;margin-left:auto}
 .navlinks a{display:inline-flex;align-items:center;height:31px;padding:0 15px;border:1px solid var(--line-2);
   border-radius:999px;font-size:12.5px;color:var(--text-2);background:var(--surface);transition:.28s var(--ease)}
 .navlinks a:hover{color:var(--text);border-color:var(--line-3);background:var(--bg-soft);transform:translateY(-1px)}
@@ -114,8 +115,9 @@ header{position:fixed;top:0;left:0;right:0;z-index:80;background:transparent;
 .navlinks a.btn-dark{color:var(--bg);background:var(--text);border-color:transparent}
 .navlinks a.btn-dark:hover{color:var(--bg);background:var(--text);border-color:transparent}
 @media(max-width:680px){
-  .nav{height:46px}.brand{font-size:14.5px}.mark{width:19px;height:19px}.navlinks{gap:5px}
+  .nav{height:46px}.brand{font-size:14.5px}.brand-lockup{width:128px;height:30px}.brand-image{left:-60px;top:-105px;width:250px;height:250px}.navlinks{gap:5px}
   .navlinks a{height:28px;padding:0 11px;font-size:11.5px;letter-spacing:-.005em}}
+[data-theme="dark"] .brand-image{filter:invert(1)}
 
 /* ---------- section header ---------- */
 .shead{max-width:760px;padding-bottom:38px;border-bottom:1px solid var(--line);margin-bottom:50px}
@@ -369,13 +371,10 @@ footer{border-top:1px solid var(--line);padding:60px 0 38px;margin-top:0;backgro
 
 <header id="hdr">
   <div class="wrap nav">
-    <a href="#top" class="brand" aria-label="Operand — início">
-      <svg class="mark" viewBox="0 0 26 26" fill="none" aria-hidden="true">
-        <rect x=".75" y=".75" width="24.5" height="24.5" rx="7" stroke="currentColor" stroke-opacity=".24"/>
-        <path d="M6 17.4 13 6.6l7 10.8" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/>
-        <circle cx="13" cy="17.4" r="2.1" fill="currentColor"/>
-      </svg>
-      Operand
+    <a href="#top" class="brand" aria-label="ORVEX — início">
+      <span class="brand-lockup">
+        <img class="brand-image" src="attached_assets/ChatGPT_Image_22_de_set._de_2026,_18_06_16_1790111191139.png" alt="ORVEX" />
+      </span>
     </a>
     <nav class="navlinks">
       <a href="#platform">Plataforma</a>
@@ -408,7 +407,7 @@ footer{border-top:1px solid var(--line);padding:60px 0 38px;margin-top:0;backgro
           <div class="screen">
             <div class="ui ui-lap" data-base="580" data-h="362">
               <aside class="u-side">
-                <div class="u-brand"><span class="u-glyph"></span>Operand</div>
+                <div class="u-brand"><span class="u-glyph"></span>ORVEX</div>
                 <div class="u-nav">
                   <div class="u-item on"><span class="u-ico"></span>Agentes</div>
                   <div class="u-item"><span class="u-ico"></span>Conhecimento</div>
@@ -588,13 +587,10 @@ footer{border-top:1px solid var(--line);padding:60px 0 38px;margin-top:0;backgro
   <div class="wrap">
     <div class="fgrid">
       <div class="fcol">
-        <a href="#top" class="brand" style="margin-bottom:16px">
-          <svg class="mark" viewBox="0 0 26 26" fill="none" aria-hidden="true">
-            <rect x=".75" y=".75" width="24.5" height="24.5" rx="7" stroke="currentColor" stroke-opacity=".24"/>
-            <path d="M6 17.4 13 6.6l7 10.8" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/>
-            <circle cx="13" cy="17.4" r="2.1" fill="currentColor"/>
-          </svg>
-          Operand
+        <a href="#top" class="brand" style="margin-bottom:16px" aria-label="ORVEX — início">
+          <span class="brand-lockup">
+            <img class="brand-image" src="attached_assets/ChatGPT_Image_22_de_set._de_2026,_18_06_16_1790111191139.png" alt="ORVEX" />
+          </span>
         </a>
       </div>
       <div class="fcol">
@@ -611,7 +607,7 @@ footer{border-top:1px solid var(--line);padding:60px 0 38px;margin-top:0;backgro
       </div>
     </div>
     <div class="fbot">
-      <span class="small">© <span id="yr"></span> Operand. Todos os direitos reservados.</span>
+      <span class="small">© <span id="yr"></span> ORVEX. Todos os direitos reservados.</span>
     </div>
   </div>
 </footer>
