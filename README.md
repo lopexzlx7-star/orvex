@@ -1,2 +1,0 @@
-# orvex
-AI agency
