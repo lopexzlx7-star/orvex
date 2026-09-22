@@ -343,6 +343,34 @@ footer{border-top:1px solid var(--line);padding:60px 0 38px;margin-top:0;backgro
 .pal-foot b{font-weight:500;color:var(--text-2)}
 .prog{position:fixed;top:0;left:0;height:2px;background:var(--text);z-index:90;width:0;transition:width .1s linear}
 
+/* ---------- auth modal (glassmorphism) ---------- */
+.authm{position:fixed;inset:0;z-index:130;display:grid;place-items:center;padding:20px}
+.authm[hidden]{display:none}
+.authm-bg{position:absolute;inset:0;background:rgba(11,11,12,.35);
+  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);animation:authFade .3s var(--ease)}
+[data-theme="dark"] .authm-bg{background:rgba(0,0,0,.5)}
+@keyframes authFade{from{opacity:0}to{opacity:1}}
+.authm-box{position:relative;width:min(400px,100%);padding:24px;border-radius:24px;
+  background:rgba(255,255,255,.6);border:1px solid rgba(255,255,255,.55);
+  backdrop-filter:blur(22px) saturate(1.5);-webkit-backdrop-filter:blur(22px) saturate(1.5);
+  box-shadow:var(--shadow-l);animation:palIn .4s var(--ease)}
+[data-theme="dark"] .authm-box{background:rgba(20,20,22,.55);border-color:rgba(255,255,255,.14)}
+.authm-tabs{display:flex;gap:6px;padding:4px;border-radius:999px;background:var(--bg-sunken);margin-bottom:18px}
+.atab{flex:1;height:34px;border-radius:999px;font-size:13px;font-weight:500;color:var(--text-2);transition:.25s var(--ease)}
+.atab.on{background:var(--surface-solid);color:var(--text);box-shadow:var(--shadow-s)}
+.authm .field{display:block;margin-bottom:14px}
+.authm .field span{display:block;font-family:'Geist Mono',monospace;font-size:10.5px;letter-spacing:.13em;
+  text-transform:uppercase;color:var(--text-3);margin-bottom:6px}
+.authm .field input{width:100%;height:44px;padding:0 14px;border-radius:12px;border:1px solid var(--line-2);
+  background:rgba(255,255,255,.55);color:var(--text);font:inherit;font-size:15px;outline:none;transition:border-color .25s}
+[data-theme="dark"] .authm .field input{background:rgba(255,255,255,.06)}
+.authm .field input:focus{border-color:var(--line-3)}
+.authm .hint{margin:-6px 0 12px}
+.aerr{min-height:20px;margin:0 0 10px;font-size:13.5px;color:#C4453B}
+[data-theme="dark"] .aerr{color:#E88A80}
+.authm .abtn{width:100%}
+.anote{margin:14px 0 0;text-align:center}
+
 /* reduced motion — no pinning, no scrub; show the finished state */
 @media(prefers-reduced-motion:reduce){
   html.js-pin .hero-pin{height:auto}
@@ -378,8 +406,8 @@ footer{border-top:1px solid var(--line);padding:60px 0 38px;margin-top:0;backgro
       <h1 class="grad-text reveal">Inteligência<br>que opera.</h1>
       <p class="lead reveal" style="transition-delay:.08s">Projetamos e implantamos sistemas de IA que entendem o seu negócio, conectam a sua tecnologia e automatizam o trabalho que importa.</p>
       <div class="hero-cta reveal" style="transition-delay:.14s" id="heroCta">
-        <a href="entrar.html" class="btn btn-ghost">Entrar</a>
-        <a href="cadastro.html" class="btn btn-dark">Cadastro <span class="arrow">→</span></a>
+        <a href="#" class="btn btn-ghost" id="btnLogin">Entrar</a>
+        <a href="#" class="btn btn-dark" id="btnSignup">Cadastro <span class="arrow">→</span></a>
       </div>
     </div>
 
@@ -561,6 +589,24 @@ footer{border-top:1px solid var(--line);padding:60px 0 38px;margin-top:0;backgro
   </div>
 </div>
 
+<div class="authm" id="authm" role="dialog" aria-modal="true" aria-label="Entrar ou criar conta" hidden>
+  <div class="authm-bg" id="authmBg"></div>
+  <div class="authm-box">
+    <div class="authm-tabs">
+      <button class="atab on" id="tabLogin" type="button">Entrar</button>
+      <button class="atab" id="tabSignup" type="button">Criar conta</button>
+    </div>
+    <form id="authForm" novalidate>
+      <label class="field"><span>Email</span><input id="aEmail" type="email" autocomplete="email" placeholder="voce@empresa.com" required /></label>
+      <label class="field"><span>Senha</span><input id="aPass" type="password" required /></label>
+      <p class="small hint" id="aHint" hidden>Mínimo de 8 caracteres, com letras e números.</p>
+      <p class="aerr" id="aErr" role="alert"></p>
+      <button class="btn btn-dark abtn" id="aSubmit" type="submit">Entrar <span class="arrow">→</span></button>
+    </form>
+    <p class="small anote">Credenciais verificadas neste navegador (hash SHA-256 + salt) até o backend definitivo.</p>
+  </div>
+</div>
+
 <script>
 (function(){
   'use strict';
@@ -577,29 +623,114 @@ footer{border-top:1px solid var(--line);padding:60px 0 38px;margin-top:0;backgro
     else if (window.matchMedia('(prefers-color-scheme: dark)').matches) root.setAttribute('data-theme','dark');
   } catch(e){}
 
-  /* ---------- session: swap the hero CTAs once signed in ---------- */
-  try {
-    var sess = localStorage.getItem('orvex-session');
-    if (sess){
-      var cta = document.getElementById('heroCta');
-      cta.innerHTML = '';
-      var dash = document.createElement('a');
-      dash.href = 'dashboard.html';
-      dash.className = 'btn btn-dark';
-      dash.innerHTML = 'Dashboard <span class="arrow">→</span>';
-      var out = document.createElement('a');
-      out.href = '#';
-      out.className = 'btn btn-ghost';
-      out.textContent = 'Sair';
-      out.addEventListener('click', function(ev){
-        ev.preventDefault();
-        localStorage.removeItem('orvex-session');
-        location.reload();
-      });
-      cta.appendChild(dash);
-      cta.appendChild(out);
+  /* ---------- session + auth modal ---------- */
+  var cta = document.getElementById('heroCta');
+  function setSessionUI(){
+    var sess = null;
+    try { sess = localStorage.getItem('orvex-session'); } catch(e){}
+    if (!sess) return;
+    cta.innerHTML = '';
+    var dash = document.createElement('a');
+    dash.href = 'dashboard.html';
+    dash.className = 'btn btn-dark';
+    dash.innerHTML = 'Dashboard <span class="arrow">→</span>';
+    var out = document.createElement('a');
+    out.href = '#';
+    out.className = 'btn btn-ghost';
+    out.textContent = 'Sair';
+    out.addEventListener('click', function(ev){
+      ev.preventDefault();
+      try { localStorage.removeItem('orvex-session'); } catch(e){}
+      location.reload();
+    });
+    cta.appendChild(dash);
+    cta.appendChild(out);
+  }
+  setSessionUI();
+
+  function sha256(text){
+    return crypto.subtle.digest('SHA-256', new TextEncoder().encode(text)).then(function(buf){
+      return Array.prototype.map.call(new Uint8Array(buf), function(b){
+        return b.toString(16).padStart(2,'0');
+      }).join('');
+    });
+  }
+  function accounts(){
+    try { return JSON.parse(localStorage.getItem('orvex-accounts')) || {}; } catch(e){ return {}; }
+  }
+
+  var authm = document.getElementById('authm');
+  var aEmail = document.getElementById('aEmail');
+  var aPass = document.getElementById('aPass');
+  var aErr = document.getElementById('aErr');
+  var aHint = document.getElementById('aHint');
+  var aSubmit = document.getElementById('aSubmit');
+  var tabLogin = document.getElementById('tabLogin');
+  var tabSignup = document.getElementById('tabSignup');
+  var mode = 'login';
+
+  function setMode(m){
+    mode = m;
+    var signup = m === 'signup';
+    tabLogin.classList.toggle('on', !signup);
+    tabSignup.classList.toggle('on', signup);
+    aHint.hidden = !signup;
+    aPass.setAttribute('autocomplete', signup ? 'new-password' : 'current-password');
+    aSubmit.innerHTML = (signup ? 'Criar conta' : 'Entrar') + ' <span class="arrow">→</span>';
+    aErr.textContent = '';
+  }
+  function openAuth(m){
+    setMode(m);
+    authm.hidden = false;
+    document.body.style.overflow = 'hidden';
+    setTimeout(function(){ aEmail.focus(); }, 30);
+  }
+  function closeAuth(){
+    authm.hidden = true;
+    document.body.style.overflow = '';
+  }
+  var btnLogin = document.getElementById('btnLogin');
+  var btnSignup = document.getElementById('btnSignup');
+  if (btnLogin) btnLogin.addEventListener('click', function(ev){ ev.preventDefault(); openAuth('login'); });
+  if (btnSignup) btnSignup.addEventListener('click', function(ev){ ev.preventDefault(); openAuth('signup'); });
+  document.getElementById('authmBg').addEventListener('click', closeAuth);
+  tabLogin.addEventListener('click', function(){ setMode('login'); });
+  tabSignup.addEventListener('click', function(){ setMode('signup'); });
+  document.addEventListener('keydown', function(e){ if (e.key === 'Escape' && !authm.hidden) closeAuth(); });
+
+  document.getElementById('authForm').addEventListener('submit', function(ev){
+    ev.preventDefault();
+    aErr.textContent = '';
+    var mail = aEmail.value.trim().toLowerCase();
+    var pwd = aPass.value;
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(mail)){ aErr.textContent = 'Informe um e-mail válido.'; return; }
+    var list = accounts();
+    if (mode === 'signup'){
+      if (pwd.length < 8 || !/[a-zA-Z]/.test(pwd) || !/\d/.test(pwd)){
+        aErr.textContent = 'A senha precisa de 8+ caracteres, com letras e números.'; return;
+      }
+      if (list[mail]){ aErr.textContent = 'Este e-mail já está cadastrado.'; return; }
+      var salt = Array.prototype.map.call(crypto.getRandomValues(new Uint8Array(8)), function(b){
+        return b.toString(16).padStart(2,'0');
+      }).join('');
+      sha256(salt + ':' + pwd).then(function(hash){
+        list[mail] = { salt: salt, hash: hash };
+        localStorage.setItem('orvex-accounts', JSON.stringify(list));
+        localStorage.setItem('orvex-session', mail);
+        closeAuth(); setSessionUI();
+      }).catch(function(){ aErr.textContent = 'Não foi possível criar a conta neste navegador.'; });
+    } else {
+      var acct = list[mail];
+      if (!acct){ aErr.textContent = 'E-mail ou senha incorretos.'; return; }
+      sha256(acct.salt + ':' + pwd).then(function(hash){
+        if (hash !== acct.hash){ aErr.textContent = 'E-mail ou senha incorretos.'; return; }
+        localStorage.setItem('orvex-session', mail);
+        closeAuth(); setSessionUI();
+      }).catch(function(){ aErr.textContent = 'Não foi possível entrar neste navegador.'; });
     }
-  } catch(e){}
+  });
+
+  if (new URLSearchParams(location.search).has('entrar')) openAuth('login');
 
   /* ---------- header + progress ---------- */
   var hdr = document.getElementById('hdr'), prog = document.getElementById('prog');
