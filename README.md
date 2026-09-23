@@ -10,8 +10,27 @@ JavaScript estão embutidos no próprio HTML.
 | Arquivo | Descrição |
 |---|---|
 | `index.html` | O site completo (login/cadastro abrem em modal glassmorphism) |
-| `dashboard.html` | Painel pós-login: KPIs, financeiro, atendimento e automações (dados de demonstração) |
+| `dashboard.html` | Painel pós-login do cliente: KPIs, financeiro, atendimento e automações (dados de demonstração) |
+| `admin/` | Painel administrativo interno (SPA estática): Dashboard, CRM, Clientes, Projetos, Serviços, Vendas, Financeiro, Tarefas, Suporte, Analytics, Automações, Arquivos, Equipe e Configurações |
 | `README.md` | Este arquivo |
+
+### Painel administrativo (`admin/`)
+
+Aplicação estática em uma pasta, sem build, com roteamento por hash e dados de
+demonstração em `admin/data.js` (nenhum dado real). Estrutura:
+
+| Arquivo | Descrição |
+|---|---|
+| `admin/index.html` | Shell: sidebar, topbar, pesquisa global, notificações, modais |
+| `admin/app.css` | Design system completo (tokens, tabelas, kanban, gráficos, responsivo) |
+| `admin/data.js` | _Datasets_ fictícios de todos os módulos |
+| `admin/app.js` | Guarda de sessão, roteador, componentes (tabelas, gráficos, kanban, modais, toasts) |
+| `admin/views.js` | Os 14 módulos do painel |
+
+O acesso exige sessão criada no modal de login do site (`localStorage`); sem
+sessão, `admin/` redireciona para `index.html?entrar=1`. A estrutura já é
+modular para receber posteriormente banco de dados real, autenticação,
+permissões, APIs e integrações externas.
 
 ## Rodando localmente
 

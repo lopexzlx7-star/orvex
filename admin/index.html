@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Painel — ORVEX</title>
+<meta name="description" content="Painel administrativo interno da ORVEX." />
+<meta name="robots" content="noindex" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="app.css" />
+</head>
+<body>
+<div class="shell">
+  <aside class="sb" id="sb" aria-label="Navegação do painel">
+    <div class="sb-top">
+      <a href="../index.html" class="sb-brand" aria-label="ORVEX — site">
+        <img src="../attached_assets/orvex-logo-transparent.png" alt="ORVEX" />
+      </a>
+      <span class="mono sb-tag">Painel interno</span>
+      <button class="iconbtn sb-close" id="sbClose" aria-label="Fechar menu">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+    </div>
+    <nav class="sb-nav" id="sbNav"></nav>
+    <div class="sb-user" id="sbUser"></div>
+  </aside>
+  <div class="sb-bg" id="sbBg"></div>
+
+  <div class="main">
+    <header class="tb">
+      <button class="iconbtn sb-open" id="sbOpen" aria-label="Abrir menu">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+      <div class="tb-crumb mono" id="crumb"></div>
+      <button class="tb-search" id="tbSearchBtn" aria-label="Pesquisar">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.2-3.2"/></svg>
+        <span>Pesquisar clientes, projetos, tarefas…</span>
+        <span class="kbd">/</span>
+      </button>
+      <button class="iconbtn" id="bellBtn" aria-label="Notificações">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M18 9a6 6 0 1 0-12 0c0 5-2 6-2 6h16s-2-1-2-6"/><path d="M10.3 20a2 2 0 0 0 3.4 0"/></svg>
+        <i class="dot" id="bellDot"></i>
+      </button>
+      <div class="tb-av" id="tbAv" title=""></div>
+    </header>
+
+    <div class="page">
+      <div class="phead">
+        <div>
+          <h1 id="pTitle"></h1>
+          <p id="pSub"></p>
+        </div>
+        <div class="pact" id="pAct"></div>
+      </div>
+      <div id="view"></div>
+    </div>
+  </div>
+</div>
+
+<div class="gs" id="gs" role="dialog" aria-modal="true" aria-label="Pesquisa global" hidden>
+  <div class="gs-bg" id="gsBg"></div>
+  <div class="gs-box">
+    <div class="gs-in">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.2-3.2"/></svg>
+      <input id="gsInput" placeholder="Pesquisar em clientes, leads, projetos, tarefas, tickets, arquivos e serviços…" autocomplete="off" />
+      <span class="kbd">ESC</span>
+    </div>
+    <div class="gs-res" id="gsRes"></div>
+  </div>
+</div>
+
+<div class="notif" id="notif" role="dialog" aria-label="Notificações" hidden></div>
+<div class="modal-root" id="modalRoot"></div>
+<div class="toasts" id="toasts"></div>
+<div class="tip" id="tip" hidden></div>
+
+<script src="data.js"></script>
+<script src="app.js"></script>
+<script src="views.js"></script>
+</body>
+</html>
