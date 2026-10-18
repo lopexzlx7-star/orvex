@@ -1,0 +1,87 @@
+{
+  "name": "ORVEX - exemplo com callback",
+  "nodes": [
+    {
+      "id": "32c81b89-6e77-4eac-9cb0-7a8af7c60e40",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        0,
+        0
+      ],
+      "webhookId": "ee746f7f-ba3b-43e2-ac84-e39687e71761",
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "orvex-exemplo-async",
+        "responseMode": "onReceived",
+        "options": {}
+      }
+    },
+    {
+      "id": "ba47fd82-7032-4a40-9208-49112a7de837",
+      "name": "Processar",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        220,
+        0
+      ],
+      "parameters": {
+        "jsCode": "const h = $input.first().json.headers || {};\nif (h['x-orvex-secret'] !== $env.ORVEX_WEBHOOK_SECRET) { throw new Error('segredo inválido'); }\nconst b = $input.first().json.body;\n// Substitua este nó pela lógica real do workflow (IA, CRM, planilha, mensagens...).\nreturn [{ json: { ok: true, execution_id: b.execution_id, automation: b.automation.name, payload: b.payload } }];"
+      }
+    },
+    {
+      "id": "e8a00f52-4cb9-4506-9e49-2810508c949d",
+      "name": "Callback ORVEX",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        440,
+        0
+      ],
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $('Webhook').first().json.body.callback_url }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "x-orvex-secret",
+              "value": "={{ $env.ORVEX_CALLBACK_SECRET }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ execution_id: $json.execution_id, n8n_execution_id: $execution.id, status: 'success', output: { processed: true } }) }}",
+        "options": {}
+      }
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Processar",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Processar": {
+      "main": [
+        [
+          {
+            "node": "Callback ORVEX",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {}
+}
