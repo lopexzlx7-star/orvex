@@ -1,0 +1,49 @@
+{
+  "name": "ORVEX - exemplo síncrono",
+  "nodes": [
+    {
+      "id": "d2322fcc-37f4-4082-8587-914ce6ea0d6d",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        0,
+        0
+      ],
+      "webhookId": "9f11b385-3e00-41fa-9213-899a0252d984",
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "orvex-exemplo",
+        "responseMode": "lastNode",
+        "options": {}
+      }
+    },
+    {
+      "id": "5cb19e8c-faa6-4465-a9ab-4a160e67902f",
+      "name": "Processar",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        220,
+        0
+      ],
+      "parameters": {
+        "jsCode": "const h = $input.first().json.headers || {};\nif (h['x-orvex-secret'] !== $env.ORVEX_WEBHOOK_SECRET) { throw new Error('segredo inválido'); }\nconst b = $input.first().json.body;\n// Substitua este nó pela lógica real do workflow (IA, CRM, planilha, mensagens...).\nreturn [{ json: { ok: true, execution_id: b.execution_id, automation: b.automation.name, payload: b.payload } }];"
+      }
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Processar",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {}
+}
